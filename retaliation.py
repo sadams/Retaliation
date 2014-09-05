@@ -83,44 +83,20 @@ import base64
 import usb.core
 import usb.util
 
+import json
+
 ##########################  CONFIG   #########################
 
 #
-# Define a dictionary of "command sets" that map usernames to a sequence 
-# of commands to target the user (e.g their desk/workstation).  It's 
-# suggested that each set start and end with a "zero" command so it's
+# Json structure representing targets.
+# It's suggested that each set start and end with a "zero" command so it's
 # always parked in a known reference location. The timing on move commands
 # is milli-seconds. The number after "fire" denotes the number of rockets
 # to shoot.
 #
-COMMAND_SETS = {
-    "will" : (
-        ("zero", 0), # Zero/Park to know point (bottom-left)
-        ("led", 1), # Turn the LED on
-        ("right", 3250),
-        ("up", 540),
-        ("fire", 4), # Fire a full barrage of 4 missiles
-        ("led", 0), # Turn the LED back off
-        ("zero", 0), # Park after use for next time
-    ),
-    "tom" : (
-        ("zero", 0), 
-        ("right", 4400),
-        ("up", 200),
-        ("fire", 4),
-        ("zero", 0),
-    ),
-    "chris" : (      # That's me - just dance around and missfire!
-        ("zero", 0),
-        ("right", 5200),
-        ("up", 500),
-        ("pause", 5000),
-        ("left", 2200),
-        ("down", 500),
-        ("fire", 1),
-        ("zero", 0),
-    ),
-}
+json_data = open('./commands.json')
+COMMAND_SETS = json.load(json_data)
+json_data.close()
 
 #
 # The UDP port to listen to Jenkins events on (events are generated/supplied 
@@ -259,9 +235,8 @@ def run_command(command, value):
 
 
 def run_command_set(commands):
-    for cmd, value in commands:
-        run_command(cmd, value)
-
+    for cmd in commands:
+        run_command(cmd[0], cmd[1])
 
 def jenkins_target_user(user):
     match = False

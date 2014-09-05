@@ -85,6 +85,7 @@ in this video</a>.
     It may work with other models but I've only tested with this one.
   * Python 2.6+
   * Python PyUSB Support (on Mac use brew to "brew install libusb")
+  * ```pip install -r requirements.txt```
   * Should work on Windows, Mac and Linux
 
 Thanks to the dev team at <a href="http://www.papercut.com/">PaperCut</a> (working on print 
