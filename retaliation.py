@@ -84,6 +84,7 @@ import usb.core
 import usb.util
 
 import json
+import os
 
 ##########################  CONFIG   #########################
 
@@ -94,7 +95,8 @@ import json
 # is milli-seconds. The number after "fire" denotes the number of rockets
 # to shoot.
 #
-json_data = open('./commands.json')
+curr_dir = os.path.dirname(os.path.realpath(__file__))
+json_data = open(curr_dir + '/commands.json')
 COMMAND_SETS = json.load(json_data)
 json_data.close()
 
@@ -157,7 +159,7 @@ def usage():
 def setup_usb():
     # Tested only with the Cheeky Dream Thunder
     # and original USB Launcher
-    global DEVICE 
+    global DEVICE
     global DEVICE_TYPE
 
     DEVICE = usb.core.find(idVendor=0x2123, idProduct=0x1010)
@@ -171,7 +173,7 @@ def setup_usb():
     else:
         DEVICE_TYPE = "Thunder"
 
-    
+
 
     # On Linux we need to detach usb HID first
     if "Linux" == platform.system():
@@ -266,7 +268,7 @@ def read_url(url):
 def jenkins_get_responsible_user(job_name):
     # Call back to Jenkins and determin who broke the build. (Hacky)
     # We do this by crudly parsing the changes on the last failed build
-    
+
     changes_url = JENKINS_SERVER + "/job/" + job_name + "/lastFailedBuild/changes"
     changedata = read_url(changes_url)
 
@@ -302,7 +304,7 @@ def jenkins_wait_for_event():
                 jenkins_target_user(target)
         except:
             pass
-                
+
 
 def main(args):
 
