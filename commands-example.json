@@ -1,0 +1,28 @@
+{
+    "will" : [
+        ["zero", 0], // Zero/Park to know point (bottom-left)
+        ["led", 1], // Turn the LED on
+        ["right", 3250],
+        ["up", 540],
+        ["fire", 4], // Fire a full barrage of 4 missiles
+        ["led", 0], // Turn the LED back off
+        ["zero", 0] // Park after use for next time
+    ],
+    "tom" : [
+        ["zero", 0],
+        ["right", 4400],
+        ["up", 200],
+        ["fire", 4],
+        ["zero", 0]
+    ],
+    "chris" : [      // That's me - just dance around and missfire!
+        ["zero", 0],
+        ["right", 5200],
+        ["up", 500],
+        ["pause", 5000],
+        ["left", 2200],
+        ["down", 500],
+        ["fire", 1],
+        ["zero", 0]
+    ]
+}
